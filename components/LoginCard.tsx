@@ -7,10 +7,10 @@ import { Label } from "./ui/label";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// type LoginType = {
-//   email: string;
-//   password: string;
-// };
+type LoginType = {
+  email: string;
+  password: string;
+};
 
 const formSchema = z.object({
   email: z.string().email("Please input email").nonempty(),
@@ -27,7 +27,7 @@ export default function LoginForm() {
     resolver: zodResolver(formSchema),
   });
 
-  function loginSubmit(data) {
+  function loginSubmit(data: LoginType) {
     console.log("login clicked: ", data);
   }
   console.log(watch("email"));
@@ -38,8 +38,8 @@ export default function LoginForm() {
         <CardTitle>Login to your account</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(loginSubmit)}>
-          <div className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit(loginSubmit)} className="space-y-6">
+          <div className="flex flex-col gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -50,6 +50,7 @@ export default function LoginForm() {
               />
               <p className="text-red-500">{errors.email?.message}</p>
             </div>
+
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
@@ -57,19 +58,21 @@ export default function LoginForm() {
               <Input
                 id="password"
                 type="password"
-                placeholder="***"
+                placeholder="********"
                 {...register("password")}
               />
               <p className="text-red-500">{errors.password?.message}</p>
             </div>
           </div>
 
-          <Button type="submit" className="w-full">
-            Login
-          </Button>
-          <Button variant="outline" className="w-full">
-            Login with Google
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+            <Button variant="outline" className="w-full">
+              Login with Google
+            </Button>
+          </div>
         </form>
       </CardContent>
     </Card>
