@@ -4,3 +4,12 @@ export type PostResponse = {
   title: string;
   body: string;
 };
+
+export type ImageFile = {
+  id: string;
+  file: File;
+  preview: string;
+  progress: number;
+  status: "uploading" | "completed" | "error";
+  error?: string;
+};
